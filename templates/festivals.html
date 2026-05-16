@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultural Festivals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="{{ url_for('home') }}" class="nav-brand">🌸 <span>Blue</span> Bloom Travel</a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('packages') }}">Packages</a>
+        <a href="{{ url_for('festivals') }}">Festivals</a>
+        <a href="{{ url_for('bookings') }}">Bookings</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </div>
+      
+    </div>
+  </nav>
+
+  <div class="flash-wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash flash-{{ 'success' if category == 'success' else 'error' }}">
+            {{ message }}<button class="flash-close">✕</button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <div class="page-header">
+    <h1>🌟 Cultural Festivals</h1>
+    <p>Discover the world's most amazing cultural celebrations</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Yi Peng Lantern Festival -->
+      <div class="festival-row fade-up">
+        <img src="{{ url_for('static', filename='images/lantern-festival.JPG') }}" alt="Yi Peng Lantern Festival">
+        <div class="festival-text">
+          <span class="festival-tag">🇹🇭 Thailand</span>
+          <h3>Yi Peng Lantern Festival</h3>
+          <p class="festival-meta">📅 November &nbsp;|&nbsp; 📍 Chiang Mai, Thailand</p>
+          <p>One of the most magical events in the world — thousands of paper lanterns are released into the night sky, creating a breathtaking sea of floating lights. Rooted in Buddhist tradition, releasing a lantern symbolizes letting go of worries and making wishes for the future.</p>
+          <p style="margin-top:10px;">Visitors can join lantern-making workshops, enjoy Thai music and dance, and taste authentic Northern Thai cuisine at street markets.</p>
+          <a href="{{ url_for('packages') }}" class="btn btn-primary btn-sm mt-2" style="margin-top:14px;">See Related Packages →</a>
+        </div>
+      </div>
+
+      <!-- Cherry Blossom Season Japan -->
+      <div class="festival-row reverse fade-up">
+        <img src="{{ url_for('static', filename='images/cherryblosoomjapan.jpg') }}" alt="Cherry Blossom Season Japan">
+        <div class="festival-text">
+          <span class="festival-tag">🇯🇵 Japan</span>
+          <h3>Hanami — Cherry Blossom Season</h3>
+          <p class="festival-meta">📅 March – April &nbsp;|&nbsp; 📍 Tokyo & Kyoto, Japan</p>
+          <p>Hanami is the traditional Japanese custom of enjoying cherry blossoms. Parks and gardens transform into stunning pink canopies as thousands of trees bloom at once.</p>
+          <p style="margin-top:10px;">Families gather for picnics, tea ceremonies, and celebrations beneath the blossoms. It represents the fleeting beauty of life — a philosophy deeply embedded in Japanese culture.</p>
+          <a href="{{ url_for('packages') }}" class="btn btn-primary btn-sm" style="margin-top:14px;">See Related Packages →</a>
+        </div>
+      </div>
+
+      <!-- Carnival in Rio Brazil-->
+      <div class="festival-row fade-up">
+        <img src="{{ url_for('static', filename='images/carnavalrio.jpg') }}" alt="Rio Carnival Brazil">
+        <div class="festival-text">
+          <span class="festival-tag">🇧🇷 Brazil</span>
+          <h3>Carnival in Rio de Janeiro</h3>
+          <p class="festival-meta">📅 February – March &nbsp;|&nbsp; 📍 Rio de Janeiro, Brazil</p>
+          <p>The world's largest carnival celebration! For five days, the city comes alive with samba, elaborate costumes, and spectacular parades at the Sambadrome. Street parties called "blocos" take over entire neighborhoods.</p>
+          <a href="{{ url_for('packages') }}" class="btn btn-primary btn-sm" style="margin-top:14px;">See Related Packages →</a>
+        </div>
+      </div>
+
+      <!-- Holi Festival India -->
+      <div class="festival-row reverse fade-up">
+        <img src="https://images.unsplash.com/photo-1576398289164-c48dc021b4e1?w=700&auto=format&fit=crop" alt="Holi Festival India">
+        <div class="festival-text">
+          <span class="festival-tag">🇮🇳 India</span>
+          <h3>Holi — Festival of Colors</h3>
+          <p class="festival-meta">📅 March &nbsp;|&nbsp; 📍 Jaipur & Delhi, India</p>
+          <p>The "Festival of Colors" celebrates the arrival of spring and the triumph of good over evil. People throw colored powders and water at each other, dance to music, and share traditional sweets. It breaks social barriers — everyone participates!</p>
+          <a href="{{ url_for('packages') }}" class="btn btn-primary btn-sm" style="margin-top:14px;">See Related Packages →</a>
+        </div>
+      </div>
+
+      <!-- Harbin Ice Festival China -->
+      <div class="festival-row fade-up">
+        <img src="{{ url_for('static', filename='images/china1.jpg') }}" alt="Harbin Ice Festival China">
+        <div class="festival-text">
+          <span class="festival-tag">🇨🇳 China</span>
+          <h3>Harbin Ice & Snow Festival</h3>
+          <p class="festival-meta">📅 January – February &nbsp;|&nbsp; 📍 Harbin, China</p>
+          <p>The world's largest ice and snow festival. Artists create massive illuminated ice sculptures — full-size buildings, castles, and towers made entirely of ice. At night they glow with colorful LED lights, creating a frozen wonderland.</p>
+          <a href="{{ url_for('packages') }}" class="btn btn-primary btn-sm" style="margin-top:14px;">See Related Packages →</a>
+        </div>
+      </div>
+
+      <!-- Korean Festivals South Korea -->
+      <div class="festival-row reverse fade-up">
+        <img src="{{ url_for('static', filename='images/korea4.jpg') }}" alt="Korean Cultural Festival">
+        <div class="festival-text">
+          <span class="festival-tag">🇰🇷 South Korea</span>
+          <h3>Chuseok & Korean Cultural Festivals</h3>
+          <p class="festival-meta">📅 September – October &nbsp;|&nbsp; 📍 Seoul & Busan, South Korea</p>
+          <p>Chuseok, the Korean harvest festival, features traditional games, music, dance, and delicious food like songpyeon rice cakes. Seoul also hosts lantern festivals, K-pop concerts, and the Busan International Film Festival throughout the year.</p>
+          <a href="{{ url_for('packages') }}" class="btn btn-primary btn-sm" style="margin-top:14px;">See Related Packages →</a>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="text-center fade-up" style="padding:40px 0 0;">
+        <h2 style="margin-bottom:12px;">Ready for Your Cultural Adventure?</h2>
+        <p class="text-muted" style="margin-bottom:24px;">Browse our travel packages and book your dream trip today!</p>
+        <a href="{{ url_for('packages') }}" class="btn btn-orange btn-lg">✈️ Explore Packages</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div><h4>🌸 Blue Bloom Travel</h4><p>Where every journey blooms into a story.</p></div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{{ url_for('packages') }}">Travel Packages</a></li>
+          <li><a href="{{ url_for('festivals') }}">Cultural Festivals</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+      </div>
+      <div><h4>Connect With Us</h4><p>📧 cruzmeirycollado@gmail.com</p><p>📍 New York, NY</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 Blue Bloom Travel. All Rights Reserved.</div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

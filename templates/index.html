@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Bloom Travel - Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="{{ url_for('home') }}" class="nav-brand">🌸 <span>Blue</span> Bloom Travel</a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('packages') }}">Packages</a>
+        <a href="{{ url_for('festivals') }}">Festivals</a>
+        <a href="{{ url_for('bookings') }}">Bookings</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flash-wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash flash-{{ 'success' if category == 'success' else 'error' }}">
+            {{ message }}<button class="flash-close">✕</button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- Hero -->
+  <!-- Hero con Carousel -->
+<section class="hero">
+  <div class="carousel">
+    <div class="slide active" style="background-image: url('/static/images/lantern-festival.JPG');"></div>
+<div class="slide" style="background-image: url('/static/images/cherryblosoomjapan.jpg');"></div>
+<div class="slide" style="background-image: url('/static/images/southkorea.jpg');"></div>
+<div class="slide" style="background-image: url('/static/images/brazil.jpeg');"></div>
+<div class="slide" style="background-image: url('/static/images/gizapyramids.jpg');"></div>
+  </div>
+
+  <!-- Texto encima de las fotos -->
+  <div class="hero-content">
+    <h1>Explore the World Through Culture</h1>
+    <p>Curated travel experiences for young adventurers seeking meaningful cultural connections.</p>
+    <div class="btn-group" style="justify-content:center;">
+      <a href="{{ url_for('packages') }}" class="btn btn-orange btn-lg">View Packages</a>
+      <a href="{{ url_for('festivals') }}" class="btn btn-outline btn-lg" style="color:white;border-color:white;">Explore Festivals</a>
+    </div>
+  </div>
+
+  <!-- Puntitos de navegación abajo -->
+  <div class="carousel-dots">
+    <span class="dot active" onclick="goToSlide(0)"></span>
+    <span class="dot" onclick="goToSlide(1)"></span>
+    <span class="dot" onclick="goToSlide(2)"></span>
+    <span class="dot" onclick="goToSlide(3)"></span>
+    <span class="dot" onclick="goToSlide(4)"></span>
+  </div>
+</section>
+
+  <!-- Featured Packages -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="text-center fade-up" style="margin-bottom:32px;">
+        <h2 class="section-title">Featured Packages</h2>
+        <p class="section-subtitle">Our most popular cultural adventures</p>
+      </div>
+      <div class="cards-grid">
+
+        <!-- PACKAGE 1 — Lantern Festival -->
+        <div class="card fade-up">
+          <img src="{{ url_for('static', filename='images/lantern2.JPG') }}" alt="Lantern Festival Thailand">
+          <div class="card-body">
+            <p class="destination">📍 Chiang Mai, Thailand</p>
+            <h3>Lantern Festival Experience</h3>
+            <p class="duration">🕐 7 days / 6 nights</p>
+            <p class="desc-preview">Watch thousands of lanterns float into the night sky at the magical Yi Peng Festival.</p>
+          </div>
+          <div class="card-footer">
+            <span class="price">$1,299.99</span>
+            <a href="{{ url_for('book') }}?package=Lantern Festival Experience" class="btn btn-orange btn-sm">Book Now</a>
+          </div>
+        </div>
+
+        <!-- PACKAGE 2 — Cherry Blossom -->
+        <div class="card fade-up">
+          <img src="{{ url_for('static', filename='images/japan2.jpg') }}" alt="Cherry Blossom Japan">
+          <div class="card-body">
+            <p class="destination">📍 Tokyo & Kyoto, Japan</p>
+            <h3>Cherry Blossom Season</h3>
+            <p class="duration">🕐 10 days / 9 nights</p>
+            <p class="desc-preview">Walk through stunning pink blossom tunnels and experience traditional Japan in spring.</p>
+          </div>
+          <div class="card-footer">
+            <span class="price">$2,499.99</span>
+            <a href="{{ url_for('book') }}?package=Cherry Blossom Season" class="btn btn-orange btn-sm">Book Now</a>
+          </div>
+        </div>
+
+        <!-- PACKAGE 3 — Seoul & Busan -->
+        <div class="card fade-up">
+          <img src="{{ url_for('static', filename='images/korea2.jpg') }}" alt="Seoul South Korea">
+          <div class="card-body">
+            <p class="destination">📍 Seoul & Busan, South Korea</p>
+            <h3>Seoul & Busan Adventure</h3>
+            <p class="duration">🕐 12 days / 11 nights</p>
+            <p class="desc-preview">Explore palaces, street food, beaches, and the vibrant culture of South Korea.</p>
+          </div>
+          <div class="card-footer">
+            <span class="price">$1,899.99</span>
+            <a href="{{ url_for('book') }}?package=Seoul %26 Busan Adventure" class="btn btn-orange btn-sm">Book Now</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-center mt-3">
+        <a href="{{ url_for('packages') }}" class="btn btn-outline">View All Packages →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center fade-up" style="margin-bottom:32px;">
+        <h2 class="section-title">Why Choose Blue Bloom Travel?</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-box fade-up">
+          <div class="feature-icon">🌍</div>
+          <h3>Cultural Immersion</h3>
+          <p>Go beyond sightseeing. Our packages focus on authentic cultural experiences and meaningful connections.</p>
+        </div>
+        <div class="feature-box fade-up">
+          <div class="feature-icon">👥</div>
+          <h3>Travel Community</h3>
+          <p>Connect with fellow travelers through our comments section. Find travel buddies who share your interests.</p>
+        </div>
+        <div class="feature-box fade-up">
+          <div class="feature-icon">💰</div>
+          <h3>Affordable Adventures</h3>
+          <p>Curated packages designed for young adults. Quality experiences at prices that won't break the bank.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>🌸 Blue Bloom Travel</h4>
+        <p>Where every journey blooms into a story.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{{ url_for('packages') }}">Travel Packages</a></li>
+          <li><a href="{{ url_for('festivals') }}">Cultural Festivals</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect With Us</h4>
+        <p>📧 cruzmeirycollado@gmail.com</p>
+        <p>📍 New York, NY</p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Blue Bloom Travel. All Rights Reserved.</div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

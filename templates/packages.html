@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="{{ url_for('home') }}" class="nav-brand">🌸 <span>Blue</span> Bloom Travel</a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('packages') }}">Packages</a>
+        <a href="{{ url_for('festivals') }}">Festivals</a>
+        <a href="{{ url_for('bookings') }}">Bookings</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="flash-wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash flash-{{ 'success' if category == 'success' else 'error' }}">
+            {{ message }}<button class="flash-close">✕</button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <div class="page-header">
+    <h1>✈️ Travel Packages</h1>
+    <p>Discover curated cultural adventures designed for young travelers</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+    <!-- ═══════════════════════════════════════════════════
+         PACKAGE 1 — LANTERN FESTIVAL
+    ═══════════════════════════════════════════════════ -->
+    <div class="package-block fade-up" id="Lantern-Festival-Experience">
+      <div class="detail-grid">
+
+        <img src="{{ url_for('static', filename='images/lantern3.jpg') }}" alt="Lantern Festival Thailand">
+
+        <div>
+          <p class="destination">📍 Chiang Mai, Thailand</p>
+          <h2>Lantern Festival Experience</h2>
+          <p class="duration">🕐 7 days / 6 nights</p>
+          <p class="price">$1,299.99</p>
+          <p style="color:var(--text-muted); margin-bottom:20px;">
+            Experience the magical Yi Peng Lantern Festival in Chiang Mai. Watch thousands of
+            lanterns float into the night sky while enjoying Thai cuisine, temple tours, and
+            cultural workshops. Includes guided tours of Doi Suthep temple, a Thai cooking
+            class, and VIP seating at the lantern release ceremony.
+          </p>
+          <a href="{{ url_for('book') }}?package=Lantern Festival Experience" class="btn btn-orange btn-lg">📅 Book This Trip</a>
+        </div>
+      </div>
+
+      <!-- Comments for this package -->
+      <div class="comments-section">
+        <h4>💬 Traveler Comments</h4>
+
+        <!-- Add comment form -->
+        <div class="comment-form">
+          <form action="{{ url_for('add_comment') }}" method="POST">
+            <input type="hidden" name="package_name" value="Lantern Festival Experience">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="username" placeholder="e.g. TravelWithMike" required>
+            </div>
+            <div class="form-group">
+              <label>Comment</label>
+              <textarea name="message" rows="2" placeholder="Share your thoughts!" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+          </form>
+        </div>
+
+        {% for comment in all_comments %}
+          {% if comment.package_name == "Lantern Festival Experience" %}
+          <div class="comment-card">
+            <div>
+              <p class="comment-user">👤 {{ comment.username }}</p>
+              <p>{{ comment.message }}</p>
+              <p class="comment-time">{{ comment.created_at.strftime('%B %d, %Y') }}</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn btn-outline btn-sm">✏️</a>
+              <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST"
+                    onsubmit="return confirm('Delete this comment?');">
+                <button type="submit" class="btn btn-danger btn-sm">🗑</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════════════════
+         PACKAGE 2 — CHERRY BLOSSOM
+    ═══════════════════════════════════════════════════ -->
+    <div class="package-block fade-up" id="Cherry-Blossom-Season">
+      <div class="detail-grid">
+
+        <img src="{{ url_for('static', filename='images/japan3.jpg') }}" alt="Cherry Blossom Japan">
+
+        <div>
+          <p class="destination">📍 Tokyo & Kyoto, Japan</p>
+          <h2>Cherry Blossom Season</h2>
+          <p class="duration">🕐 10 days / 9 nights</p>
+          <p class="price">$2,499.99</p>
+          <p style="color:var(--text-muted); margin-bottom:20px;">
+            Witness the stunning cherry blossom season across Japan. Visit iconic spots like
+            Ueno Park, Philosopher's Path, and Osaka Castle Park. Includes a traditional tea
+            ceremony, kimono rental experience, and bullet train passes between cities.
+          </p>
+          <a href="{{ url_for('book') }}?package=Cherry Blossom Season" class="btn btn-orange btn-lg">📅 Book This Trip</a>
+        </div>
+      </div>
+
+      <div class="comments-section">
+        <h4>💬 Traveler Comments</h4>
+        <div class="comment-form">
+          <form action="{{ url_for('add_comment') }}" method="POST">
+            <input type="hidden" name="package_name" value="Cherry Blossom Season">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="username" placeholder="e.g. SakuraLover" required>
+            </div>
+            <div class="form-group">
+              <label>Comment</label>
+              <textarea name="message" rows="2" placeholder="Share your thoughts!" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+          </form>
+        </div>
+        {% for comment in all_comments %}
+          {% if comment.package_name == "Cherry Blossom Season" %}
+          <div class="comment-card">
+            <div>
+              <p class="comment-user">👤 {{ comment.username }}</p>
+              <p>{{ comment.message }}</p>
+              <p class="comment-time">{{ comment.created_at.strftime('%B %d, %Y') }}</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn btn-outline btn-sm">✏️</a>
+              <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST"
+                    onsubmit="return confirm('Delete this comment?');">
+                <button type="submit" class="btn btn-danger btn-sm">🗑</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════════════════
+         PACKAGE 3 — SEOUL & BUSAN
+    ═══════════════════════════════════════════════════ -->
+    <div class="package-block fade-up" id="Seoul-Busan-Adventure">
+      <div class="detail-grid">
+
+        <img src="{{ url_for('static', filename='images/korea3.jpg') }}" alt="Seoul South Korea">
+
+        <div>
+          <p class="destination">📍 Seoul & Busan, South Korea</p>
+          <h2>Seoul & Busan Adventure</h2>
+          <p class="duration">🕐 12 days / 11 nights</p>
+          <p class="price">$1,899.99</p>
+          <p style="color:var(--text-muted); margin-bottom:20px;">
+            Explore the vibrant culture of South Korea! Visit Gyeongbokgung Palace, Bukchon
+            Hanok Village, and the bustling streets of Myeongdong in Seoul. Then head to Busan
+            for Haeundae Beach, Gamcheon Culture Village, and fresh seafood at Jagalchi Market.
+          </p>
+          <a href="{{ url_for('book') }}?package=Seoul %26 Busan Adventure" class="btn btn-orange btn-lg">📅 Book This Trip</a>
+        </div>
+      </div>
+
+      <div class="comments-section">
+        <h4>💬 Traveler Comments</h4>
+        <div class="comment-form">
+          <form action="{{ url_for('add_comment') }}" method="POST">
+            <input type="hidden" name="package_name" value="Seoul & Busan Adventure">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="username" placeholder="e.g. KoreanCultureFan" required>
+            </div>
+            <div class="form-group">
+              <label>Comment</label>
+              <textarea name="message" rows="2" placeholder="Share your thoughts!" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+          </form>
+        </div>
+        {% for comment in all_comments %}
+          {% if comment.package_name == "Seoul & Busan Adventure" %}
+          <div class="comment-card">
+            <div>
+              <p class="comment-user">👤 {{ comment.username }}</p>
+              <p>{{ comment.message }}</p>
+              <p class="comment-time">{{ comment.created_at.strftime('%B %d, %Y') }}</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn btn-outline btn-sm">✏️</a>
+              <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST"
+                    onsubmit="return confirm('Delete this comment?');">
+                <button type="submit" class="btn btn-danger btn-sm">🗑</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+
+    <hr class="divider">
+
+        <!-- ═══════════════════════════════════════════════════
+             PACKAGE 4 — PYRAMIDS OF GIZA
+             ═══════════════════════════════════════════════════ -->
+
+<div class="package-block fade-up" id="Pyramids-of-Giza">
+  <div class="detail-grid">
+
+    <img src="{{ url_for('static', filename='images/gizapyramids3.jpg') }}" alt="Pyramids of Giza Egypt">
+
+    <div>
+      <p class="destination">📍 Cairo, Egypt</p>
+      <h2>Pyramids of Giza Experience</h2>
+      <p class="duration">🕐 8 days / 7 nights</p>
+      <p class="price">$1,199.99</p>
+      <p style="color:var(--text-muted); margin-bottom:20px;">
+        Discover one of the Seven Wonders of the Ancient World! Explore the iconic
+        Pyramids of Giza, the Great Sphinx, and the Egyptian Museum. Experience a
+        camel ride through the desert, a Nile River cruise, and the vibrant bazaars
+        of Cairo. A truly unforgettable historical adventure.
+      </p>
+      <a href="{{ url_for('book') }}?package=Pyramids of Giza Experience" class="btn btn-orange btn-lg">📅 Book This Trip</a>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h4>💬 Traveler Comments</h4>
+    <div class="comment-form">
+      <form action="{{ url_for('add_comment') }}" method="POST">
+        <input type="hidden" name="package_name" value="Pyramids of Giza Experience">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="username" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label>Comment</label>
+          <textarea name="message" rows="2" placeholder="Share your thoughts!" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+      </form>
+    </div>
+    {% for comment in all_comments %}
+      {% if comment.package_name == "Pyramids of Giza Experience" %}
+      <div class="comment-card">
+        <div>
+          <p class="comment-user">👤 {{ comment.username }}</p>
+          <p>{{ comment.message }}</p>
+          <p class="comment-time">{{ comment.created_at.strftime('%B %d, %Y') }}</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn btn-outline btn-sm">✏️</a>
+          <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST"
+                onsubmit="return confirm('Delete this comment?');">
+            <button type="submit" class="btn btn-danger btn-sm">🗑</button>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+  <hr class="divider">
+
+    <!-- ═══════════════════════════════════════════════════
+         PACKAGE 5 — CARNIVAL IN RIO
+         ═══════════════════════════════════════════════════ -->
+    <div class="package-block fade-up" id="Carnival-in-Rio">
+      <div class="detail-grid">
+
+      
+        <img src="{{ url_for('static', filename='images/carnavalrio.jpg') }}" alt="Rio Carnival Brazil">
+
+        <div>
+          <p class="destination">📍 Rio de Janeiro, Brazil</p>
+          <h2>Carnival in Rio</h2>
+          <p class="duration">🕐 6 days / 5 nights</p>
+          <p class="price">$1,599.99</p>
+          <p style="color:var(--text-muted); margin-bottom:20px;">
+            Join the world's biggest party at Rio Carnival! Dance to samba rhythms, watch the
+            spectacular parade at the Sambadrome, and visit Christ the Redeemer and Sugarloaf
+            Mountain. Includes parade tickets and a samba dance class.
+          </p>
+          <a href="{{ url_for('book') }}?package=Carnival in Rio" class="btn btn-orange btn-lg">📅 Book This Trip</a>
+        </div>
+      </div>
+
+      <div class="comments-section">
+        <h4>💬 Traveler Comments</h4>
+        <div class="comment-form">
+          <form action="{{ url_for('add_comment') }}" method="POST">
+            <input type="hidden" name="package_name" value="Carnival in Rio">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="username" placeholder="e.g. DancingQueen" required>
+            </div>
+            <div class="form-group">
+              <label>Comment</label>
+              <textarea name="message" rows="2" placeholder="Share your thoughts!" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+          </form>
+        </div>
+        {% for comment in all_comments %}
+          {% if comment.package_name == "Carnival in Rio" %}
+          <div class="comment-card">
+            <div>
+              <p class="comment-user">👤 {{ comment.username }}</p>
+              <p>{{ comment.message }}</p>
+              <p class="comment-time">{{ comment.created_at.strftime('%B %d, %Y') }}</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn btn-outline btn-sm">✏️</a>
+              <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST"
+                    onsubmit="return confirm('Delete this comment?');">
+                <button type="submit" class="btn btn-danger btn-sm">🗑</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <hr class="divider">
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="footer-grid">
+      <div><h4>🌸 Blue Bloom Travel</h4><p>Where every journey blooms into a story.</p></div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{{ url_for('packages') }}">Travel Packages</a></li>
+          <li><a href="{{ url_for('festivals') }}">Cultural Festivals</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+      </div>
+      <div><h4>Connect With Us</h4><p>📧 cruzmeirycollado@gmail.com</p><p>📍 New York, NY</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 Blue Bloom Travel. All Rights Reserved.</div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
